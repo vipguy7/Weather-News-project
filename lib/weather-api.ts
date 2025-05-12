@@ -1,7 +1,5 @@
 "use server"
 
-import { cache } from "react"
-
 // Define the weather condition type
 export type WeatherCondition =
   | "Clear"
@@ -59,7 +57,7 @@ interface OpenWeatherErrorResponse {
 }
 
 // Map OpenWeatherMap condition codes to our weather conditions
-function mapWeatherCondition(weatherId: number): WeatherCondition {
+async function mapWeatherCondition(weatherId: number): Promise<WeatherCondition> {
   // Weather condition codes: https://openweathermap.org/weather-conditions
   if (weatherId >= 200 && weatherId < 300) return "Thunderstorm"
   if (weatherId >= 300 && weatherId < 400) return "Drizzle"
@@ -83,7 +81,7 @@ const weatherCache = new Map<string, { data: WeatherData; timestamp: number }>()
 let isApiKeyInvalid = false
 
 // Format date for display
-function formatLastUpdated(timestamp: number): string {
+async function formatLastUpdated(timestamp: number): Promise<string> {
   const date = new Date(timestamp * 1000)
   return date.toLocaleString("en-US", {
     month: "short",
@@ -94,7 +92,7 @@ function formatLastUpdated(timestamp: number): string {
 }
 
 // Export the fetchWeatherData function with caching
-export const fetchWeatherData = cache(async (city: string): Promise<WeatherData | null> => {
+export async function fetchWeatherData(city: string): Promise<WeatherData | null> {
   // If we already know the API key is invalid, don't try to fetch
   if (isApiKeyInvalid) {
     console.log("Skipping API call - API key previously detected as invalid")
@@ -143,13 +141,13 @@ export const fetchWeatherData = cache(async (city: string): Promise<WeatherData 
     const weatherData: WeatherData = {
       city: data.name,
       temperature: Math.round(data.main.temp),
-      condition: mapWeatherCondition(data.weather[0].id),
+      condition: await mapWeatherCondition(data.weather[0].id),
       humidity: data.main.humidity,
       windSpeed: Math.round(data.wind.speed * 3.6), // Convert m/s to km/h
       time: isMorning ? "morning" : "night",
       description: data.weather[0].description,
       isRealData: true,
-      lastUpdated: formatLastUpdated(data.dt),
+      lastUpdated: await formatLastUpdated(data.dt),
       icon: data.weather[0].icon,
     }
 
@@ -161,7 +159,7 @@ export const fetchWeatherData = cache(async (city: string): Promise<WeatherData 
     console.error(`Error fetching weather data for ${city}:`, error)
     return null
   }
-})
+}
 
 // Function to clear the cache for a specific city
 export async function clearWeatherCache(city: string): Promise<void> {
