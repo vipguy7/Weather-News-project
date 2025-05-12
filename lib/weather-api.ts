@@ -181,7 +181,7 @@ export async function isApiKeyValid(): Promise<boolean> {
   try {
     // Try to fetch weather for a well-known city
     const response = await fetch(
-      `https://api.openweathermap.org/data/2.5/weather?q=London&units=metric&appid=${apiKey}`,
+      `https://api.openweathermap.org/data/2.5/weather?q=London&units=metric&appid=${b023ba7818b2ff8ee1950e7ee3042ba7}`,
       { cache: "no-store" },
     )
 
