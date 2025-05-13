@@ -40,12 +40,12 @@
     --glass-bg: 255 255 255;
     --glass-border: 255 255 255;
     --glass-shadow: 0 0 0;
-    --glass-blur: 8px;
-    --glass-opacity: 0.15;
+    --glass-blur: 4px;
+    --glass-opacity: 0.5;
   }
 
   .dark {
-    --background: 222.2 84% 4.9%;
+    --background: 222.2 84% 4.90%;
     --foreground: 210 40% 98%;
 
     --card: 222.2 84% 4.9%;
