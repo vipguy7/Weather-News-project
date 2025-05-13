@@ -143,7 +143,7 @@ export async function fetchWeatherData(city: string, forceRefresh = false): Prom
   }
 
   const apiKey = process.env.OPENWEATHER_API_KEY
-  if (!apiKey || apiKey.trim() === "b023ba7818b2ff8ee1950e7ee3042ba7") {
+  if (!apiKey || apiKey.trim() === "") {
     console.log("No OpenWeather API key found, using mock data")
     return null
   }
@@ -220,7 +220,7 @@ export async function fetchHourlyForecast(city: string, forceRefresh = false): P
   }
 
   const apiKey = process.env.OPENWEATHER_API_KEY
-  if (!apiKey || apiKey.trim() === "b023ba7818b2ff8ee1950e7ee3042ba7") {
+  if (!apiKey || apiKey.trim() === "") {
     return undefined
   }
 
@@ -324,12 +324,12 @@ export async function isApiKeyValid(): Promise<boolean> {
   if (isApiKeyInvalid) return false
 
   const apiKey = process.env.OPENWEATHER_API_KEY
-  if (!apiKey || apiKey.trim() === "b023ba7818b2ff8ee1950e7ee3042ba7") return false
+  if (!apiKey || apiKey.trim() === "") return false
 
   try {
     // Try to fetch weather for a well-known city
     const response = await fetch(
-      `https://api.openweathermap.org/data/2.5/weather?q=London&units=metric&appid=${b023ba7818b2ff8ee1950e7ee3042ba7}`,
+      `https://api.openweathermap.org/data/2.5/weather?q=London&units=metric&appid=${apiKey}`,
       { cache: "no-store" },
     )
 

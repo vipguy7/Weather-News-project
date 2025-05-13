@@ -56,7 +56,7 @@ export default async function Home() {
                 <p className="text-sm">
                   <a
                     href="https://openweathermap.org/api"
-                    target="b023ba7818b2ff8ee1950e7ee3042ba7"
+                    target="_blank"
                     rel="noopener noreferrer"
                     className="text-blue-600 hover:underline inline-flex items-center"
                   >
