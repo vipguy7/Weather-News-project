@@ -1,0 +1,20 @@
+/* Import Pyitaungsu font for Burmese text */
+@font-face {
+  font-family: "Pyitaungsu";
+  src: url("/fonts/Pyitaungsu-Regular.woff2") format("woff2"), url("/fonts/Pyitaungsu-Regular.woff") format("woff");
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Pyitaungsu";
+  src: url("/fonts/Pyitaungsu-Bold.woff2") format("woff2"), url("/fonts/Pyitaungsu-Bold.woff") format("woff");
+  font-weight: bold;
+  font-style: normal;
+  font-display: swap;
+}
+
+.font-burmese {
+  font-family: "Pyitaungsu", sans-serif;
+}
